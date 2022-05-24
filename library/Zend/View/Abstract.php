@@ -901,6 +901,10 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
     public function escape($var)
     {
         if (in_array($this->_escape, ['htmlspecialchars', 'htmlentities'])) {
+            if ($this->_escape == 'htmlspecialchars' && $var === null) {
+                return null;
+            }
+            
             return call_user_func($this->_escape, $var, ENT_COMPAT, $this->_encoding);
         }
 
